@@ -34,4 +34,6 @@ Dica: Preste atenção no uso de variável de ambiente, precisamos ter a variáv
 
 ```
 docker build -t sibelly/linuxtips-giropops-senhas:1.0 .
+
+docker build -t teste -f Dockerfile-distroless .
 ```
