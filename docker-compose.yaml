@@ -7,13 +7,40 @@ services:
       - giropops
     environment:
       REDIS_HOST: redis
+    volumes:
+      - strigus:/strigus
+    depends_on:
+      - redis
+    deploy:
+      resources:
+        reservations:
+          cpus: '0.25'
+          memory: 128M
+        limits:
+          cpus: '0.5'
+          memory: 256M
+    # healthcheck:
+    #   test: ["CMD", "curl", "-f", "http://localhost:5000"]
+    #   interval: 1m30s
+    #   timeout: 30s
+    #   retries: 5
+    #   start_period: 30s
   redis:
     image: redis
-    ports:
-      - "6379:6379"
+    command: redis-server --appendonly yes
     networks:
       - giropops
+    volumes:
+      - strigus:/strigus
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
 
 networks:
   giropops:
     driver: bridge
+volumes:
+  strigus:

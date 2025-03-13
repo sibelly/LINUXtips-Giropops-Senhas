@@ -37,3 +37,8 @@ docker build -t sibelly/linuxtips-giropops-senhas:1.0 .
 
 docker build -t teste -f Dockerfile-distroless .
 ```
+
+## Docker compose
+```
+docker compose -f docker-compose.yaml up -d --scale redis=3
+```
